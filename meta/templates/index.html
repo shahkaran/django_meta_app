@@ -1,0 +1,53 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en" ng-app="meta">
+<head>
+    <link rel="stylesheet" href="{% static "bootstrap-combined.min.css" %}" />
+    <script src="{% static "angular.min.js" %}"></script>
+    <script src="{% static "ui-bootstrap-0.1.0.min.js" %}"></script>
+
+    <script src="{% static "example.js" %}"></script>
+    <style>
+[class*="span"].centred {
+  margin-left: auto;
+  margin-right: auto;
+  float: none;
+}
+
+.center {
+    text-align:center;
+}
+
+.center form {
+    display:inline-block;
+}
+    </style>
+    <title>Meta Site</title>
+</head>
+  <body>
+
+<div ng-controller="meta_info" class="container">
+{% if saved %}
+	{% verbatim %}
+	 <alert ng-repeat="alert in alerts" type="alert.type" close="closeAlert($index)">{{alert.msg}}</alert>
+	{% endverbatim %}
+{% endif %}
+ <div class="row">
+        <div class="span12 center">
+	  <input type="hidden" ng-model="loaded" value="false"/>
+	  <form class="well" action="/saveinfo/" method="POST">
+	  	<label>Enter Url:</label><input type="text" class="span6" ng-model="url" name="url" ng-readonly="loaded"><br/>
+	  		<div class='btn' ng-click="getInfo()" ng-readonly="loaded">Get Info</div>
+	  	<label>Title:</label><input type="text" ng-model="title" class="span6" name="title" ng-readonly="!loaded" ><br/>
+	  	<label>Meta Keywords:</label><input type="text" ng-model="keywords" class="span6" name="keywords" ng-readonly="!loaded" ><br/>
+	  	<label>Meta Description:</label><input type="text" ng-model="desc" class="span6" name="desc" ng-readonly="!loaded" ><br/>
+			<input type="submit" value="Save Info"></input>
+	  </form>
+	</div>
+  </div>
+</div>
+
+
+  </body>
+</html>
+
