@@ -17,8 +17,10 @@ def home(request):
 
 
 def getInfo(request):
+
 	url=request.POST["url"]
-	website = urllib2.urlopen(url)
+	req = urllib2.Request(url, headers={'User-Agent' : "Magic Browser"}) 
+	website = urllib2.urlopen(req)
 	op=website.read()
 	soup=BeautifulSoup(op)
 	title=soup.title.string

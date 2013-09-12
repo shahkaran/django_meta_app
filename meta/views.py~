@@ -17,6 +17,7 @@ def home(request):
 
 
 def getInfo(request):
+
 	url=request.POST["url"]
 	website = urllib2.urlopen(url)
 	op=website.read()
@@ -40,7 +41,7 @@ def getInfo(request):
 
 def saved(request):
 	t=get_template('index.html')
-	return t.render(RequestContext(request,{'saved':True}));
+	return HttpResponse(t.render(RequestContext(request,{'saved':True})));
 
 def saveInfo(request):
 	meta_url=request.POST["url"]
